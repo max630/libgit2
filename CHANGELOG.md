@@ -19,6 +19,11 @@ v0.23 + 1
   with the reflog on ref deletion. The file-based backend must delete
   it, a database-backed one may wish to archive it.
 
+* `git_index_add` will now use the case as provided by the caller on
+  case insensitive systems.  Previous versions would keep the case as
+  it existed in the index.  This does not affect the higher-level
+  `git_index_add_bypath` or `git_index_add_frombuffer` functions.
+
 v0.23
 ------
 
