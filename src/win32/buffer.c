@@ -6,7 +6,7 @@
  */
 
 #include "common.h"
-#include "w32_buffer.h"
+#include "buffer.h"
 #include "../buffer.h"
 #include "utf-conv.h"
 
@@ -52,3 +52,4 @@ int git_buf_put_w(git_buf *buf, const wchar_t *string_w, size_t len_w)
 	buf->ptr[buf->size] = '\0';
 	return 0;
 }
+
