@@ -511,14 +511,6 @@ typedef enum {
 	GIT_REMOTE_DOWNLOAD_TAGS_ALL,
 } git_remote_autotag_option_t;
 
-/**
- * Fetch options structure.
- *
- * Zero out for defaults.  Initialize with `GIT_FETCH_OPTIONS_INIT` macro to
- * correctly set the `version` field.  E.g.
- *
- *		git_fetch_options opts = GIT_FETCH_OPTIONS_INIT;
- */
 typedef struct {
 	int version;
 
@@ -747,7 +739,7 @@ GIT_EXTERN(int) git_remote_prune_refs(const git_remote *remote);
  * stored here for further processing by the caller. Always free this
  * strarray on successful return.
  * @param repo the repository in which to rename
- * @param name the current name of the remote
+ * @param name the current name of the reamote
  * @param new_name the new name the remote should bear
  * @return 0, GIT_EINVALIDSPEC, GIT_EEXISTS or an error code
  */

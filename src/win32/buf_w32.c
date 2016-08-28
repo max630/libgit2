@@ -6,7 +6,7 @@
  */
 
 #include "common.h"
-#include "buffer.h"
+#include "buf_w32.h"
 #include "../buffer.h"
 #include "utf-conv.h"
 

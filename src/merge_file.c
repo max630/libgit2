@@ -209,6 +209,7 @@ static bool merge_file__is_binary(const git_merge_file_input *file)
 
 static int merge_file__binary(
 	git_merge_file_result *out,
+	const git_merge_file_input *ancestor,
 	const git_merge_file_input *ours,
 	const git_merge_file_input *theirs,
 	const git_merge_file_options *given_opts)
@@ -247,7 +248,7 @@ static int merge_file__from_inputs(
 	if (merge_file__is_binary(ancestor) ||
 		merge_file__is_binary(ours) ||
 		merge_file__is_binary(theirs))
-		return merge_file__binary(out, ours, theirs, given_opts);
+		return merge_file__binary(out, ancestor, ours, theirs, given_opts);
 
 	return merge_file__xdiff(out, ancestor, ours, theirs, given_opts);
 }

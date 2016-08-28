@@ -10,7 +10,7 @@
 #include "repository.h"
 #ifdef GIT_WIN32
 #include "win32/posix.h"
-#include "win32/buffer.h"
+#include "win32/buf_w32.h"
 #include "win32/w32_util.h"
 #else
 #include <dirent.h>

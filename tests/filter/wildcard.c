@@ -98,6 +98,7 @@ static void wildcard_filter_cleanup(git_filter *self, void *payload)
 {
 	GIT_UNUSED(self);
 	git__free(payload);
+	return 0;
 }
 
 static void wildcard_filter_free(git_filter *f)
@@ -105,7 +106,7 @@ static void wildcard_filter_free(git_filter *f)
 	git__free(f);
 }
 
-static git_filter *create_wildcard_filter(void)
+static git_filter *create_wildcard_filter()
 {
 	git_filter *filter = git__calloc(1, sizeof(git_filter));
 	cl_assert(filter);

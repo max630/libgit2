@@ -26,6 +26,8 @@ static git_smart_subtransport_definition ssh_subtransport_definition = { git_sma
 
 static transport_definition local_transport_definition = { "file://", git_transport_local, NULL };
 
+static int git_transport_mshttp(git_transport **out, git_remote *owner, void *param);
+
 static transport_definition transports[] = {
 	{ "git://",   git_transport_smart, &git_subtransport_definition },
 	{ "http://",  git_transport_smart, &http_subtransport_definition },
@@ -36,12 +38,21 @@ static transport_definition transports[] = {
 #ifdef GIT_SSH
 	{ "ssh://",   git_transport_smart, &ssh_subtransport_definition },
 #endif
+	{ "mshttp://", git_transport_mshttp, NULL },
+	{ "mshttps://", git_transport_mshttp, NULL },
 	{ NULL, 0, 0 }
 };
 
 static git_vector custom_transports = GIT_VECTOR_INIT;
 
 #define GIT_TRANSPORT_COUNT (sizeof(transports)/sizeof(transports[0])) - 1
+
+static int git_transport_mshttp(git_transport **out, git_remote *owner, void *param)
+{
+        *out = NULL;
+        giterr_set(GIT_EUSER, "The Microsoft Git Remote Helper is no longer supported; please stop using `mshttp` URLs.  See https://vsowiki.com/index.php?title=Git_Credential_Manager for details.");
+        return -1;
+}
 
 static transport_definition * transport_find_by_url(const char *url)
 {

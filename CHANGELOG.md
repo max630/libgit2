@@ -3,19 +3,21 @@ v0.23 + 1
 
 ### Changes or improvements
 
-* Custom filters can now be registered with wildcard attributes, for
-  example `filter=*`.  Consumers should examine the attributes parameter
-  of the `check` function for details.
-
 ### API additions
 
 ### API removals
 
 ### Breaking API changes
 
-* It is the responsibility fo the refdb backend to decide what to do
+* `git_cert` descendent types now have a proper `parent` member
+
+* It is the responsibility of the refdb backend to decide what to do
   with the reflog on ref deletion. The file-based backend must delete
   it, a database-backed one may wish to archive it.
+
+* `git_config_backend` has gained two entries. `lock` and `unlock`
+  with which to implement the transactional/atomic semantics for the
+  configuration backend.
 
 * `git_index_add` will now use the case as provided by the caller on
   case insensitive systems.  Previous versions would keep the case as
@@ -102,6 +104,10 @@ v0.23
 
 * If libcurl is installed, we will use it to connect to HTTP(S)
   servers.
+
+* Custom filters can now be registered with wildcard attributes, for
+  example `filter=*`.  Consumers should examine the attributes parameter
+  of the `check` function for details.
 
 ### API additions
 
