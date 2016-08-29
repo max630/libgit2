@@ -42,5 +42,6 @@
 #include "xdiffi.h"
 #include "xemit.h"
 
+#include "../util.h"
 
 #endif /* #if !defined(XINCLUDE_H) */
