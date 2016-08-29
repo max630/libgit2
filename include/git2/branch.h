@@ -7,6 +7,7 @@
 #ifndef INCLUDE_git_branch_h__
 #define INCLUDE_git_branch_h__
 
+#include "buffer.h"
 #include "common.h"
 #include "oid.h"
 #include "types.h"
