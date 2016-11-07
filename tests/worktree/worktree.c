@@ -162,6 +162,21 @@ void test_worktree_worktree__open_as_repo(void)
 	git_buf_free(&repo_path);
 }
 
+void test_worktree_worktree__submodule_worktree_open_as_repo(void)
+{
+	git_buf repo_path = GIT_BUF_INIT;
+	git_repository *repo;
+
+	cl_git_pass(git_repository_discover(&repo_path, "/tmp/pr3436/sub_worktree/subdir", 1, NULL));
+	fprintf(stderr, "discovered: %s\n", repo_path.ptr);
+	cl_git_pass(git_repository_open(&repo, repo_path.ptr));
+	fprintf(stderr, "worktree: %s\n", git_repository_workdir(repo));
+	cl_assert_equal_s(git_repository_workdir(repo), "/tmp/pr3436/sub_worktree");
+
+	git_repository_free(repo);
+	git_buf_free(&repo_path);
+}
+
 void test_worktree_worktree__open_invalid_commondir(void)
 {
 	git_worktree *wt;
