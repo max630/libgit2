@@ -183,7 +183,9 @@ void test_worktree_open__open_discovered_submodule_worktree(void)
 
 	cl_git_pass(git_repository_discover(&path,
 		git_repository_workdir(child_fixture.worktree), false, NULL));
+        fprintf(stderr, "UP discovered: %s\n", path.ptr);
 	cl_git_pass(git_repository_open(&repo, path.ptr));
+	fprintf(stderr, "UP worktree: %s\n", git_repository_workdir(repo));
 	cl_assert_equal_s(git_repository_workdir(child_fixture.worktree),
 		git_repository_workdir(repo));
 
