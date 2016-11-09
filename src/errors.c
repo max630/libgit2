@@ -84,6 +84,8 @@ void giterr_set(int error_class, const char *string, ...)
 			errno = 0;
 	}
 
+	fprintf(stderr, "error: %s\n", buf->ptr);
+
 	if (!git_buf_oom(buf))
 		set_error_from_buffer(error_class);
 }
