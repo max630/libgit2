@@ -76,6 +76,7 @@ void test_repo_open__standard_empty_repo_through_gitdir(void)
 	cl_assert(git_repository_path(repo) != NULL);
 	cl_assert(git__suffixcmp(git_repository_path(repo), "/") == 0);
 
+        fprintf(stderr, "wd: %s\n", git_repository_workdir(repo));
 	cl_assert(git_repository_workdir(repo) != NULL);
 	cl_assert(git__suffixcmp(git_repository_workdir(repo), "/") == 0);
 
