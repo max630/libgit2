@@ -162,6 +162,22 @@ void test_worktree_worktree__open_as_repo(void)
 	git_buf_free(&repo_path);
 }
 
+void test_worktree_worktree__write_blob(void)
+{
+	git_buf repo_path = GIT_BUF_INIT;
+	git_repository *repo;
+	git_oid oid;
+
+	cl_git_pass(git_repository_discover(&repo_path, git_repository_workdir(fixture.worktree), 1, NULL));
+	cl_git_pass(git_repository_open(&repo, repo_path.ptr));
+	cl_git_mkfile("/tmp/file_ewrhfeigherug", "1..2...3... Can you hear me?\n");
+	cl_git_pass(git_blob_create_fromdisk(&oid, repo, "/tmp/file_ewrhfeigherug"));
+	cl_assert(git_oid_streq(&oid, "da5e4f20c91c81b44a7e298f3d3fb3fe2f178e32") == 0);
+
+	git_repository_free(repo);
+	git_buf_free(&repo_path);
+}
+
 void test_worktree_worktree__submodule_worktree_open_as_repo(void)
 {
 	git_buf repo_path = GIT_BUF_INIT;
