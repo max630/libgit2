@@ -169,13 +169,13 @@ void test_worktree_worktree__write_blob(void)
 	git_oid oid;
 
 	cl_git_pass(git_repository_discover(&repo_path, git_repository_workdir(fixture.worktree), 1, NULL));
-	fprintf(stderr, "repo: %s\n", git_repository_workdir(fixture.worktree));
+	// fprintf(stderr, "repo: %s\n", repo_path.ptr);
 	cl_git_pass(git_repository_open(&repo, repo_path.ptr));
 	cl_git_mkfile("/tmp/file_ewrhfeigherug", "1..2...3... Can you hear me?\n");
 	cl_git_pass(git_blob_create_fromdisk(&oid, repo, "/tmp/file_ewrhfeigherug"));
 	cl_assert(git_oid_streq(&oid, "da5e4f20c91c81b44a7e298f3d3fb3fe2f178e32") == 0);
 
-	fprintf(stderr, "worktree: %s\n", git_repository_workdir(repo));
+	// fprintf(stderr, "worktree: %s\n", git_repository_workdir(repo));
 
 	git_repository_free(repo);
 	git_buf_free(&repo_path);
