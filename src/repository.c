@@ -417,6 +417,9 @@ static int find_repo(
 	if (error < 0)
 		return error;
 
+	if (git_path_isfile(path.ptr) && git__suffixcmp(path.ptr, "/.git") != 0)
+		git_path_dirname_r(&path, path.ptr);
+
 	/* in_dot_git toggles each loop:
 	 * /a/b/c/.git, /a/b/c, /a/b/.git, /a/b, /a/.git, /a
 	 * With GIT_REPOSITORY_OPEN_BARE or GIT_REPOSITORY_OPEN_NO_DOTGIT, we
