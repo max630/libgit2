@@ -151,3 +151,23 @@ void test_repo_discover__0(void)
 	git_buf_free(&sub_repository_path);
 }
 
+void test_repo_discover__file(void)
+{
+	git_buf repo_path = GIT_BUF_INIT;
+	git_buf tmp_path = GIT_BUF_INIT;
+	git_repository *repo = NULL;
+
+	git_buf_join(&repo_path, '/', clar_sandbox_path(), "discover__file_repo");
+	cl_assert_equal_i(0, p_mkdir(repo_path.ptr, 0777));
+	cl_must_pass(git_repository_init(&repo, repo_path.ptr, 0));
+	git_buf_join(&tmp_path, '/', repo_path.ptr, "subdir");
+	cl_assert_equal_i(0, p_mkdir(tmp_path.ptr, 0777));
+	git_buf_join(&tmp_path, '/', repo_path.ptr, "subdir/file");
+	write_file(tmp_path.ptr, "foo\n");
+	git_buf_puts(&repo_path, "/.git/");
+	ensure_repository_discover(tmp_path.ptr, NULL, &repo_path);
+
+	git_repository_free(repo);
+	git_buf_free(&tmp_path);
+	git_buf_free(&repo_path);
+}
