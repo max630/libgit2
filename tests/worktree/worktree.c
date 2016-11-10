@@ -181,6 +181,28 @@ void test_worktree_worktree__write_blob(void)
 	git_buf_free(&repo_path);
 }
 
+void test_worktree_worktree__write_blob_stream(void)
+{
+	git_buf repo_path = GIT_BUF_INIT;
+	git_repository *repo;
+	git_writestream *stream;
+	const char content[] = "1..2...3... Can you hear me?\n";
+	git_oid oid;
+
+	cl_git_pass(git_repository_discover(&repo_path, git_repository_workdir(fixture.worktree), 1, NULL));
+	fprintf(stderr, "repo: %s\n", repo_path.ptr);
+	cl_git_pass(git_repository_open(&repo, repo_path.ptr));
+	cl_git_pass(git_blob_create_fromstream(&stream, repo, "foo.txt"));
+	cl_git_pass(stream->write(stream, content, strlen(content)));
+	cl_git_pass(git_blob_create_fromstream_commit(&oid, stream));
+	cl_assert(git_oid_streq(&oid, "da5e4f20c91c81b44a7e298f3d3fb3fe2f178e32") == 0);
+
+	fprintf(stderr, "worktree: %s\n", git_repository_workdir(repo));
+
+	git_repository_free(repo);
+	git_buf_free(&repo_path);
+}
+
 void test_worktree_worktree__submodule_worktree_open_as_repo(void)
 {
 	git_buf repo_path = GIT_BUF_INIT;
